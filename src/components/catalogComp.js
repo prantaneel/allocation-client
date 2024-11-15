@@ -42,7 +42,7 @@ const [rowData, setRowData] = useState(structuredClone(catalogData));
   const pushCatalogData = () => {
     const postDailyRecord = async () => {
       try{
-        const response = await fetch(`http://127.0.0.1:4000/product_catalog`,{
+        const response = await fetch(`${process.env.REACT_APP_PRODUCT_CATALOG}`,{
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -64,10 +64,11 @@ const [rowData, setRowData] = useState(structuredClone(catalogData));
   const pullCatalogData = async () => {
     const fetchProductCatalog = async () => {
       try{
-        const response = await fetch('http://127.0.0.1:4000/product_catalog');
+        const response = await fetch(`${process.env.REACT_APP_PRODUCT_CATALOG}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
+        console.log("BREAK");
         const result = await response.json();
         let catalog = [];
         const column = result.columns;
@@ -82,6 +83,7 @@ const [rowData, setRowData] = useState(structuredClone(catalogData));
           }
           catalog.push(ob);
         });
+        
         setRowData(structuredClone(catalog));
         updateCatalogData(structuredClone(catalog));
       }catch (error){

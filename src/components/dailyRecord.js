@@ -31,7 +31,7 @@ function DailyRecord() {
       }
       console.log(payload);
       try{
-        const response = await fetch(`http://127.0.0.1:4000/daily_record`,{
+        const response = await fetch(`${process.env.REACT_APP_DAILY_RECORD}`,{
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -59,7 +59,8 @@ function DailyRecord() {
     });
     const fetchDailyRecord = async () => {
       try{
-        const response = await fetch(`http://127.0.0.1:4000/daily_record?date=${forDate}`);
+        console.log(process.env.REACT_APP_DAILY_RECORD)
+        const response = await fetch(`${process.env.REACT_APP_DAILY_RECORD}?date=${forDate}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
